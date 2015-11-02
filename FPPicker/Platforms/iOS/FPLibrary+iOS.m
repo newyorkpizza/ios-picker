@@ -144,14 +144,25 @@
             }
             else
             {
-                NSForceLog(@"ERROR: Unable to write image data into temporary URL at %@", tempURL);
+                NSString *message = [NSString stringWithFormat:@"ERROR: Unable to write image data into temporary URL at %@", tempURL];
+                NSError *error = [[NSError alloc] initWithDomain:@"FPPicker"
+                                                            code:-11 // this is an arbitrary value
+                                                        userInfo:@{@"filePickerMessage": message}];
+                if (failure) {
+                    failure(error, nil, tempURL);
+                }
             }
         }
         ];
     }
     else
     {
-        NSForceLog(@"ERROR: Unable to obtain PHAssetResource from PHAsset.");
+        NSError *error = [[NSError alloc] initWithDomain:@"FPPicker"
+                                   code:-10 // this is an arbitrary value
+                               userInfo:@{@"filePickerMessage": @"ERROR: Unable to obtain PHAssetResource from PHAsset."}];
+        if (failure) {
+            failure(error, nil, tempURL);
+        }
     }
 }
 
