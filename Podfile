@@ -1,7 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 workspace 'FPPicker.xcworkspace'
 xcodeproj 'FPPicker.xcodeproj'
-platform :ios, '7.1'
+platform :ios, '8.0'
 
 # iOS Targets
 
