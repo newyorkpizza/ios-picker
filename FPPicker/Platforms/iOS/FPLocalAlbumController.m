@@ -103,6 +103,21 @@
     fetchOptions.predicate = [NSPredicate predicateWithFormat:predicateFormat
                                                 argumentArray:arguments];
 
+
+    // Fix #104: Request authorization for the Photo Library, if the app has not already done so
+    if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusNotDetermined) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Retry loading the images. Dispatch onto the main thread, since this block
+                // will be called from a background thread.
+                [self loadAlbumData];
+            });
+        }];
+
+        // Wait until after the user has responded to the prompt.
+        return;
+    }
+
     PHFetchResult *userAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum
                                                                          subtype:PHAssetCollectionSubtypeAny
                                                                          options:nil];
