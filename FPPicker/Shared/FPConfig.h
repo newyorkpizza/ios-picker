@@ -10,6 +10,7 @@
 
 typedef void (^FPVideoUploadPreprocessorBlock)(NSURL *localURL);
 typedef void (^FPImageUploadPreprocessorBlock)(NSURL *localURL, NSString *mimetype);
+typedef NSString * (^FPDefaultFilenameOverrideBlock)(NSString *mimetype);
 
 @interface FPConfig : NSObject
 
@@ -66,6 +67,11 @@ typedef void (^FPImageUploadPreprocessorBlock)(NSURL *localURL, NSString *mimety
    User-definable image upload preprocessor block.
  */
 @property (nonatomic, copy) FPImageUploadPreprocessorBlock imageUploadPreprocessorBlock;
+
+/*!
+   User-definable image block to specify a default filename based on the file's mime-type.
+ */
+@property (nonatomic, copy) FPDefaultFilenameOverrideBlock defaultFilenameOverrideBlock;
 
 /*!
    Returns a singleton FPConfig instance.

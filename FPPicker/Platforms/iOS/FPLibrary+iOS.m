@@ -44,6 +44,10 @@
         filename = @"camera.jpg";
     }
 
+    if ([FPConfig sharedInstance].defaultFilenameOverrideBlock) {
+        filename = [FPConfig sharedInstance].defaultFilenameOverrideBlock(mimetype);
+    }
+    
     [filedata writeToURL:tempURL
               atomically:YES];
 
@@ -77,6 +81,10 @@
     NSString *filename = @"movie.MOV";
     NSString *mimetype = @"video/quicktime";
 
+    if ([FPConfig sharedInstance].defaultFilenameOverrideBlock) {
+        filename = [FPConfig sharedInstance].defaultFilenameOverrideBlock(mimetype);
+    }
+    
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         success(JSON, url);
     };
@@ -157,11 +165,19 @@
              }
          };
 
-         NSString *filePath = info[@"PHImageFileURLKey"];
          NSString *filename;
-         if (filePath) {
-             filename = [filePath lastPathComponent];
+         if ([FPConfig sharedInstance].defaultFilenameOverrideBlock) {
+             filename = [FPConfig sharedInstance].defaultFilenameOverrideBlock(mimetype);
          } else {
+             NSString *filePath = info[@"PHImageFileURLKey"];
+             if (filePath) {
+                 filename = [filePath lastPathComponent];
+             } else {
+                 filename = defaultFilename;
+             }
+         }
+        
+         if (!filename) {
              filename = defaultFilename;
          }
 
