@@ -12,6 +12,7 @@
 	<string>http://www.facebook.com/dialog/oauth</string>
 	<string>https://www.facebook.com/dialog/oauth</string>
 	<string>https://m.facebook.com/v2.0/dialog/oauth</string>
+    <string>https://m.facebook.com/v2.2/dialog/oauth</string>
 	<string>https://facebook.com/v2.0/dialog/oauth</string>
 	<string>http://m.facebook.com/login.php</string>
 	<string>https://m.facebook.com/login.php</string>
@@ -48,6 +49,7 @@
 	<string>https://www.box.com/sso/</string>
 	<string>https://app.box.com/api/</string>
 	<string>https://*.app.box.com/api/</string>
+    <string>https://account.box.com/api/oauth2</string>
 	<string>https://github.com/login</string>
 	<string>https://github.com/session</string>
 	<string>http://api.instagram.com/oauth/authorize</string>
